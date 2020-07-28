@@ -5,6 +5,7 @@ import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import StackHome from "./stack-home";
 import StackPerfil from "./stack-perfil";
 import BottomDevs from "./bottom-devs";
+import { icons } from "../assets";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 400,
-    backgroundColor: "rgba(0, 0, 0, 1)",
+    backgroundColor: "rgba(0, 0, 0, 0.99)",
     textAlign: "center",
     paddingTop: 45,
   },
@@ -32,7 +33,6 @@ const styles = StyleSheet.create({
     height: 150,
     borderWidth: 1,
     borderColor: "black",
-    backgroundColor: "white",
     borderRadius: 75,
   },
   divText: {
@@ -50,13 +50,17 @@ const CustomDrawer = (props) => {
   return (
     <View style={styles.head}>
       <View style={styles.divImg}>
-        <Image style={styles.img} />
+        <Image style={styles.img} source={icons.logo} />
       </View>
       <View style={styles.divText}>
         <Text style={styles.desc}>Descrição</Text>
       </View>
       <View>
-        <DrawerItems {...props} />
+        <DrawerItems
+          {...props}
+          activeTintColor="#FAD246"
+          inactiveTintColor="white"
+        />
       </View>
     </View>
   );

@@ -53,7 +53,7 @@ const BottomDevs = createBottomTabNavigator({
         <Image
           source={icons.menino}
           resizeMode="contain"
-          style={{ width: 20, height: 20 }}
+          style={{ width: 30, height: 30 }}
         />
       ),
     },
@@ -66,7 +66,7 @@ const BottomDevs = createBottomTabNavigator({
         <Image
           source={icons.menina}
           resizeMode="contain"
-          style={{ width: 20, height: 20 }}
+          style={{ width: 35, height: 35 }}
         />
       ),
     },

@@ -1,6 +1,7 @@
-import menina from "./menina.svg";
-import menino from "./menino.svg";
-
-const icons = { menina, menino };
+const icons = {
+  menina: require("./menina.png"),
+  menino: require("./menino.png"),
+  logo: require("./logo.png"),
+};
 
 export { icons };
