@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     height: 400,
-    backgroundColor: "rgba(255, 255, 255, 0.96)",
+    backgroundColor: "rgba(0, 0, 0, 1)",
     textAlign: "center",
     paddingTop: 45,
   },
@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: 150,
     borderWidth: 1,
     borderColor: "black",
+    backgroundColor: "white",
     borderRadius: 75,
   },
   divText: {
@@ -39,6 +40,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "black",
     paddingLeft: 13.5,
+  },
+  desc: {
+    color: "white",
   },
 });
 
@@ -49,7 +53,7 @@ const CustomDrawer = (props) => {
         <Image style={styles.img} />
       </View>
       <View style={styles.divText}>
-        <Text>Descrição</Text>
+        <Text style={styles.desc}>Descrição</Text>
       </View>
       <View>
         <DrawerItems {...props} />

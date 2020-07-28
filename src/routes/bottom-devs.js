@@ -1,6 +1,9 @@
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import { Marcos, Maria } from "../pages";
+import { icons } from "../assets";
+import { Image } from "react-native";
+import React from "react";
 
 const StackMarcos = createStackNavigator(
   {
@@ -46,12 +49,26 @@ const BottomDevs = createBottomTabNavigator({
     screen: StackMarcos,
     navigationOptions: {
       tabBarLabel: "Marcos",
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={icons.menino}
+          resizeMode="contain"
+          style={{ width: 20, height: 20 }}
+        />
+      ),
     },
   },
   Maria: {
     screen: StackMaria,
     navigationOptions: {
       tabBarLabel: "Maria",
+      tabBarIcon: ({ tintColor }) => (
+        <Image
+          source={icons.menina}
+          resizeMode="contain"
+          style={{ width: 20, height: 20 }}
+        />
+      ),
     },
   },
 });
