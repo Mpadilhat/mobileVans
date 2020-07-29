@@ -15,18 +15,19 @@ const styles = StyleSheet.create({
   head: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: "100%",
-    height: 400,
+    height: 600,
     backgroundColor: "rgba(0, 0, 0, 0.99)",
     textAlign: "center",
-    paddingTop: 45,
+    // paddingTop: 45,
   },
   divImg: {
-    height: 152,
+    height: 300,
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   img: {
     width: 150,
@@ -44,13 +45,23 @@ const styles = StyleSheet.create({
   desc: {
     color: "white",
   },
+  imgTextMinha: {
+    height: 60,
+    width: 170.5,
+  },
+  imgTextVan: {
+    height: 50,
+    width: 100,
+  },
 });
 
 const CustomDrawer = (props) => {
   return (
     <View style={styles.head}>
       <View style={styles.divImg}>
+        <Image style={styles.imgTextMinha} source={icons.minha} />
         <Image style={styles.img} source={icons.logo} />
+        <Image style={styles.imgTextVan} source={icons.van} />
       </View>
       <View style={styles.divText}>
         <Text style={styles.desc}>Descrição</Text>
