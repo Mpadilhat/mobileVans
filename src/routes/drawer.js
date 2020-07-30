@@ -6,6 +6,7 @@ import StackHome from "./stack-home";
 import StackPerfil from "./stack-perfil";
 import BottomDevs from "./bottom-devs";
 import { icons } from "../assets";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     width: "100%",
-    height: 600,
+    height: 500,
     backgroundColor: "rgba(0, 0, 0, 0.99)",
     textAlign: "center",
     // paddingTop: 45,
@@ -30,28 +31,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   img: {
-    width: 150,
-    height: 150,
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 75,
+    width: 187.5,
+    height: 248.5,
   },
-  divText: {
-    marginTop: -25,
-    borderWidth: 1,
-    borderColor: "black",
-    paddingLeft: 13.5,
-  },
-  desc: {
-    color: "white",
-  },
-  imgTextMinha: {
-    height: 60,
-    width: 170.5,
-  },
-  imgTextVan: {
-    height: 50,
-    width: 100,
+  line: {
+    width: "100%",
+    height: 1.5,
+    backgroundColor: "white",
   },
 });
 
@@ -59,14 +45,10 @@ const CustomDrawer = (props) => {
   return (
     <View style={styles.head}>
       <View style={styles.divImg}>
-        <Image style={styles.imgTextMinha} source={icons.minha} />
-        <Image style={styles.img} source={icons.logo} />
-        <Image style={styles.imgTextVan} source={icons.van} />
-      </View>
-      <View style={styles.divText}>
-        <Text style={styles.desc}>Descrição</Text>
+        <Image style={styles.img} source={icons.logoBranco} />
       </View>
       <View>
+        <View style={styles.line} />
         <DrawerItems
           {...props}
           activeTintColor="#FAD246"
@@ -80,9 +62,25 @@ const CustomDrawer = (props) => {
 //Rotas dentro do menu lateral
 const Drawer = createDrawerNavigator(
   {
-    Desenvolvedores: BottomDevs,
-    Home: StackHome,
-    Perfil: StackPerfil,
+    Home: {
+      screen: StackHome,
+      navigationOptions: {
+        drawerIcon: <MaterialIcons name="home" size={25} color="#fff" />,
+      },
+    },
+    Desenvolvedores: {
+      screen: BottomDevs,
+      navigationOptions: {
+        drawerIcon: <MaterialIcons name="computer" size={25} color="#fff" />,
+      },
+    },
+    Perfil: {
+      screen: StackPerfil,
+      navigationOptions: {
+        drawerLabel: "Sobre",
+        drawerIcon: <MaterialIcons name="help" size={25} color="#fff" />,
+      },
+    },
   },
   {
     initialRouteName: "Home",
