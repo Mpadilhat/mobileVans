@@ -1,7 +1,11 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
+import {
+  createDrawerNavigator,
+  DrawerItems,
+  drawerIcon,
+} from "react-navigation-drawer";
 import StackHome from "./stack-home";
 import StackPerfil from "./stack-perfil";
 import BottomDevs from "./bottom-devs";
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
   line: {
     width: "100%",
     height: 1.5,
-    backgroundColor: "white",
+    backgroundColor: "#FAD246",
   },
 });
 
