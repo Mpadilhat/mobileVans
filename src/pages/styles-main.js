@@ -1,0 +1,86 @@
+import { StyleSheet } from "react-native";
+
+export const styles = StyleSheet.create({
+  mapa: {
+    flex: 1,
+  },
+  avatar: {
+    width: 54,
+    height: 54,
+    borderRadius: 4,
+    borderWidth: 4,
+    borderColor: "rgb(2, 0, 30)",
+  },
+  callout: {
+    width: 260,
+  },
+  name: {
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  bio: {
+    color: "#666",
+    marginTop: 5,
+  },
+  tecnologias: {
+    marginTop: 5,
+  },
+  menuForm: {
+    position: "absolute",
+    margin: 10,
+    //evita bug de não abir o teclado ao clicar no input
+    zIndex: 7,
+    backgroundColor: "white",
+    elevation: 50,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 1.0,
+    shadowRadius: 5,
+    elevation: 8,
+    padding: 7,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    borderRadius: 5,
+  },
+  inputPesquisa: {
+    flex: 1,
+    color: "#333",
+    paddingHorizontal: 20,
+    fontSize: 15,
+    borderColor: "rgba(0, 0, 0, 0.03)",
+    borderWidth: 1,
+    borderRadius: 5,
+  },
+  menu: {
+    height: 27,
+    width: 35,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 8,
+    marginRight: 7,
+    borderColor: "rgba(0, 0, 0, 0.9)",
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+    borderRadius: 4,
+  },
+  botaoPesquisa: {
+    width: 30,
+    height: 30,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    marginLeft: 7,
+    marginRight: 8,
+    borderWidth: 2,
+    borderColor: "rgba(0, 0, 0, 0.9)",
+    backgroundColor: "rgba(0, 0, 0, 0.9)",
+    borderRadius: 15,
+  },
+});

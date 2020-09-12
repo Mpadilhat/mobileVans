@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { styles } from "./styles-main";
 import MapView, { Marker, Callout } from "react-native-maps";
-import {
-  StyleSheet,
-  Image,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
+import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
 import {
   requestPermissionsAsync,
   getCurrentPositionAsync,
@@ -22,7 +16,6 @@ export default function Main({ navigation }) {
   const [regiaoAtual, setRegiaoAtual] = useState(null);
   const [tecnologias, setTecnologias] = useState("");
 
-  //Executa algo assim que o componente é montado na tela
   useEffect(() => {
     async function carregarPosicaoInicial() {
       const { granted } = await requestPermissionsAsync();
@@ -98,12 +91,12 @@ export default function Main({ navigation }) {
           onPress={() => navigation.openDrawer()}
           style={styles.menu}
         >
-          <MaterialIcons name="list" size={30} color="#000" />
+          <MaterialIcons name="list" size={33} color="#FAD246" />
         </TouchableOpacity>
 
         <TextInput
           style={styles.inputPesquisa}
-          placeholder="Buscar vans..."
+          placeholder="Buscar empresa por nome..."
           placeholderTextColor="#999"
           autoCapitalize="words"
           autoCorrect={false}
@@ -113,7 +106,7 @@ export default function Main({ navigation }) {
 
         {/* onPress={carregaDevs} */}
         <TouchableOpacity style={styles.botaoPesquisa}>
-          <MaterialIcons name="my-location" size={25} color="#000" />
+          <MaterialIcons name="my-location" size={25} color="#FAD246" />
         </TouchableOpacity>
       </View>
 
@@ -154,68 +147,3 @@ export default function Main({ navigation }) {
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  mapa: {
-    flex: 1,
-  },
-  avatar: {
-    width: 54,
-    height: 54,
-    borderRadius: 4,
-    borderWidth: 4,
-    borderColor: "rgb(2, 0, 30)",
-  },
-  callout: {
-    width: 260,
-  },
-  name: {
-    fontWeight: "bold",
-    fontSize: 16,
-  },
-  bio: {
-    color: "#666",
-    marginTop: 5,
-  },
-  tecnologias: {
-    marginTop: 5,
-  },
-  menuForm: {
-    position: "absolute",
-    margin: 10,
-    //evita bug de não abir o teclado ao clicar no input
-    zIndex: 7,
-    backgroundColor: "white",
-    elevation: 50,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 6,
-    },
-    shadowOpacity: 1.0,
-    shadowRadius: 5,
-    elevation: 8,
-    padding: 7,
-    display: "flex",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-around",
-  },
-  inputPesquisa: {
-    flex: 1,
-    color: "#333",
-    paddingHorizontal: 20,
-    fontSize: 15,
-    borderColor: "rgba(0, 0, 0, 0.03)",
-    borderWidth: 1,
-    borderRadius: 5,
-  },
-  menu: {
-    marginLeft: 8,
-    marginRight: 7,
-  },
-  botaoPesquisa: {
-    marginLeft: 7,
-    marginRight: 8,
-  },
-});
