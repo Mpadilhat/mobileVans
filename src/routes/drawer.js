@@ -1,10 +1,16 @@
 import React from "react";
 import { StyleSheet, View, Text, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
+import {
+  createDrawerNavigator,
+  DrawerItems,
+  drawerIcon,
+} from "react-navigation-drawer";
 import StackHome from "./stack-home";
 import StackPerfil from "./stack-perfil";
 import BottomDevs from "./bottom-devs";
+import { icons } from "../assets";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const styles = StyleSheet.create({
   container: {
@@ -14,31 +20,28 @@ const styles = StyleSheet.create({
   head: {
     display: "flex",
     flexDirection: "column",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     width: "100%",
-    height: 400,
-    backgroundColor: "rgba(255, 255, 255, 0.96)",
+    height: 500,
+    backgroundColor: "rgba(0, 0, 0, 0.99)",
     textAlign: "center",
-    paddingTop: 45,
+    // paddingTop: 45,
   },
   divImg: {
-    height: 152,
+    height: 300,
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
+    flexDirection: "column",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
   img: {
-    width: 150,
-    height: 150,
-    borderWidth: 1,
-    borderColor: "black",
-    borderRadius: 75,
+    width: 187.5,
+    height: 248.5,
   },
-  divText: {
-    marginTop: -25,
-    borderWidth: 1,
-    borderColor: "black",
-    paddingLeft: 13.5,
+  line: {
+    width: "100%",
+    height: 1.5,
+    backgroundColor: "#FAD246",
   },
 });
 
@@ -46,13 +49,15 @@ const CustomDrawer = (props) => {
   return (
     <View style={styles.head}>
       <View style={styles.divImg}>
-        <Image style={styles.img} />
-      </View>
-      <View style={styles.divText}>
-        <Text>Descrição</Text>
+        <Image style={styles.img} source={icons.logoBranco} />
       </View>
       <View>
-        <DrawerItems {...props} />
+        <View style={styles.line} />
+        <DrawerItems
+          {...props}
+          activeTintColor="#FAD246"
+          inactiveTintColor="white"
+        />
       </View>
     </View>
   );
@@ -61,9 +66,25 @@ const CustomDrawer = (props) => {
 //Rotas dentro do menu lateral
 const Drawer = createDrawerNavigator(
   {
-    Desenvolvedores: BottomDevs,
-    Home: StackHome,
-    Perfil: StackPerfil,
+    Home: {
+      screen: StackHome,
+      navigationOptions: {
+        drawerIcon: <MaterialIcons name="home" size={25} color="#fff" />,
+      },
+    },
+    Desenvolvedores: {
+      screen: BottomDevs,
+      navigationOptions: {
+        drawerIcon: <MaterialIcons name="computer" size={25} color="#fff" />,
+      },
+    },
+    Perfil: {
+      screen: StackPerfil,
+      navigationOptions: {
+        drawerLabel: "Sobre",
+        drawerIcon: <MaterialIcons name="help" size={25} color="#fff" />,
+      },
+    },
   },
   {
     initialRouteName: "Home",
