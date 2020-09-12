@@ -15,7 +15,7 @@ const StackHome = createStackNavigator(
     Profile: {
       screen: Profile,
       navigationOptions: {
-        title: "Informações",
+        title: "Perfil da empresa",
       },
     },
   },

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { styles } from "./styles-main";
+import { styles } from "./styles/styles-main";
 import MapView, { Marker, Callout } from "react-native-maps";
 import { Image, View, Text, TextInput, TouchableOpacity } from "react-native";
 import {
@@ -51,7 +51,7 @@ export default function Main({ navigation }) {
   // function configWebsocket() {
   //   disconnect();
 
-  //   const { latitude, longitude } = regiaoAtual;
+  //const { latitude, longitude } = regiaoAtual;
   //   connect(latitude, longitude, tecnologias);
   // }
 
@@ -115,34 +115,39 @@ export default function Main({ navigation }) {
         initialRegion={regiaoAtual}
         style={styles.mapa}
       >
-        {/* {devs.map((dev) => (
-          <Marker
-            key={dev._id}
-            coordinate={{
-              longitude: dev.localizacao.coordinates[0],
-              latitude: dev.localizacao.coordinates[1],
+        {/* {devs.map((dev) => ( */}
+        <Marker
+          // key={dev._id}
+          coordinate={{
+            // longitude: dev.localizacao.coordinates[0],
+            // latitude: dev.localizacao.coordinates[1],
+            latitude: regiaoAtual.latitude,
+            longitude: regiaoAtual.longitude,
+          }}
+        >
+          {/* <Image style={styles.avatar} source={{ uri: dev.avatar_url }} /> */}
+
+          <Callout
+            onPress={() => {
+              //Navegação para outra página
+              navigation.navigate("Profile", {
+                //idEmpresa: empresa._id,
+              });
             }}
           >
-            <Image style={styles.avatar} source={{ uri: dev.avatar_url }} />
-
-            <Callout
-              onPress={() => {
-                //Navegação para outra página
-                navigation.navigate("Profile", {
-                  github_username: dev.github_username,
-                });
-              }}
-            >
-              <View style={styles.callout}>
-                <Text style={styles.name}>{dev.nome}</Text>
-                <Text style={styles.bio}>{dev.bio}</Text>
-                <Text style={styles.tecnologias}>
-                  {dev.tecnologias.join(", ")}
-                </Text>
-              </View>
-            </Callout>
-          </Marker>
-        ))} */}
+            <View style={styles.callout}>
+              <Text style={styles.name}>nome</Text>
+              <Text style={styles.bio}>bio</Text>
+              <Text style={styles.tecnologias}>tecnologias</Text>
+              {/* <Text style={styles.name}>{dev.nome}</Text>
+              <Text style={styles.bio}>{dev.bio}</Text>
+              <Text style={styles.tecnologias}>
+                {dev.tecnologias.join(", ")}
+              </Text> */}
+            </View>
+          </Callout>
+        </Marker>
+        {/* ))} */}
       </MapView>
     </>
   );

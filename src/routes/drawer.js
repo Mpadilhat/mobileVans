@@ -7,7 +7,7 @@ import {
   drawerIcon,
 } from "react-navigation-drawer";
 import StackHome from "./stack-home";
-import StackPerfil from "./stack-perfil";
+import StackInfo from "./stack-info";
 import BottomDevs from "./bottom-devs";
 import { icons } from "../assets";
 import { MaterialIcons } from "@expo/vector-icons";
@@ -78,8 +78,8 @@ const Drawer = createDrawerNavigator(
         drawerIcon: <MaterialIcons name="computer" size={25} color="#fff" />,
       },
     },
-    Perfil: {
-      screen: StackPerfil,
+    Info: {
+      screen: StackInfo,
       navigationOptions: {
         drawerLabel: "Sobre",
         drawerIcon: <MaterialIcons name="help" size={25} color="#fff" />,

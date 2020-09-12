@@ -1,13 +1,13 @@
 import { createStackNavigator } from "react-navigation-stack";
-import { Profile } from "../pages";
+import { Info } from "../pages";
 
 //Cria as rotas das páginas a partir da Perfil
-const StackPerfil = createStackNavigator(
+const StackInfo = createStackNavigator(
   {
-    Profile: {
-      screen: Profile,
+    Info: {
+      screen: Info,
       navigationOptions: {
-        title: "Perfil da empresa",
+        title: "Informações",
       },
     },
   },
@@ -22,4 +22,4 @@ const StackPerfil = createStackNavigator(
   }
 );
 
-export default StackPerfil;
+export default StackInfo;
