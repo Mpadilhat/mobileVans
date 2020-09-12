@@ -10,6 +10,7 @@ export const styles = StyleSheet.create({
     borderRadius: 4,
     borderWidth: 4,
     borderColor: "rgb(2, 0, 30)",
+    backgroundColor: "red",
   },
   callout: {
     width: 260,

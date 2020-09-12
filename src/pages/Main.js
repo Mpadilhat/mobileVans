@@ -7,14 +7,15 @@ import {
   getCurrentPositionAsync,
 } from "expo-location";
 import { MaterialIcons } from "@expo/vector-icons";
+import { icons } from "../assets";
 
-// import api from "../services/api";
+import { buscaEmpresasProximas, buscaEmpresasPorNome } from "../services/api";
 // import { connect, disconnect, inscreverNovosDevs } from "../services/socket";
 
 export default function Main({ navigation }) {
-  const [devs, setDevs] = useState([]);
+  const [empresas, setEmpresas] = useState([]);
   const [regiaoAtual, setRegiaoAtual] = useState(null);
-  const [tecnologias, setTecnologias] = useState("");
+  const [nomeEmpresa, setNomeEmpresa] = useState("");
 
   useEffect(() => {
     async function carregarPosicaoInicial() {
@@ -33,14 +34,47 @@ export default function Main({ navigation }) {
           latitude,
           longitude,
           //Ajustam o zoom no mapa
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
+          latitudeDelta: 0.015,
+          longitudeDelta: 0.015,
         });
       }
     }
 
     carregarPosicaoInicial();
   }, []);
+
+  //Carregar empresas sem filtro no input
+  function carregaEmpresasProximas() {
+    const { latitude, longitude } = regiaoAtual;
+
+    buscaEmpresasProximas(latitude, longitude)
+      .then((resp) => setEmpresas(resp))
+      .catch((e) => console.log("ERRO: ", e));
+
+    //configWebsocket();
+  }
+
+  function filtroPorNome() {
+    if (nomeEmpresa !== "") {
+      const { latitude, longitude } = regiaoAtual;
+
+      buscaEmpresasPorNome(latitude, longitude, nomeEmpresa.trim())
+        .then((resp) => setEmpresas(resp))
+        .catch((e) => {
+          console.log("ERRO: ", e);
+        });
+
+      //configWebsocket();
+    }
+  }
+
+  useEffect(() => {
+    if (regiaoAtual !== null) {
+      if (nomeEmpresa === "" && regiaoAtual.latitude && regiaoAtual.longitude) {
+        carregaEmpresasProximas();
+      }
+    }
+  }, [regiaoAtual, nomeEmpresa]);
 
   //Toda vez que o devs for alterado, atualiza em tempo real
   // useEffect(() => {
@@ -55,26 +89,7 @@ export default function Main({ navigation }) {
   //   connect(latitude, longitude, tecnologias);
   // }
 
-  //Carregar devs
-  // async function carregaDevs() {
-  //   const { latitude, longitude } = regiaoAtual;
-  //   //AWAIT!!!!!!!!
-  //   const response = await api.get("/search", {
-  //     params: {
-  //       latitude,
-  //       longitude,
-  //       tecnologias,
-  //     },
-  //   });
-
-  //Tem que ter o 'devs' após o 'data' pq os dados vem dentro de um array com o objeto 'devs' na api
-  // setDevs(response.data.devs);
-
-  // configWebsocket();
-  // }
-
   //Muda localização se mexer no mapa - pega o region do 'onRegionChangeComplete' do MapView
-
   function mudaRegiao(region) {
     setRegiaoAtual(region);
   }
@@ -100,12 +115,14 @@ export default function Main({ navigation }) {
           placeholderTextColor="#999"
           autoCapitalize="words"
           autoCorrect={false}
-          value={tecnologias}
-          onChangeText={(text) => setTecnologias(text)}
+          value={nomeEmpresa}
+          onChangeText={(text) => setNomeEmpresa(text)}
         />
 
-        {/* onPress={carregaDevs} */}
-        <TouchableOpacity style={styles.botaoPesquisa}>
+        <TouchableOpacity
+          style={styles.botaoPesquisa}
+          onPress={() => filtroPorNome()}
+        >
           <MaterialIcons name="my-location" size={25} color="#FAD246" />
         </TouchableOpacity>
       </View>
@@ -115,39 +132,40 @@ export default function Main({ navigation }) {
         initialRegion={regiaoAtual}
         style={styles.mapa}
       >
-        {/* {devs.map((dev) => ( */}
-        <Marker
-          // key={dev._id}
-          coordinate={{
-            // longitude: dev.localizacao.coordinates[0],
-            // latitude: dev.localizacao.coordinates[1],
-            latitude: regiaoAtual.latitude,
-            longitude: regiaoAtual.longitude,
-          }}
-        >
-          {/* <Image style={styles.avatar} source={{ uri: dev.avatar_url }} /> */}
-
-          <Callout
-            onPress={() => {
-              //Navegação para outra página
-              navigation.navigate("Profile", {
-                //idEmpresa: empresa._id,
-              });
-            }}
-          >
-            <View style={styles.callout}>
-              <Text style={styles.name}>nome</Text>
-              <Text style={styles.bio}>bio</Text>
-              <Text style={styles.tecnologias}>tecnologias</Text>
-              {/* <Text style={styles.name}>{dev.nome}</Text>
+        {empresas &&
+          Array.isArray(empresas) &&
+          empresas.length !== 0 &&
+          empresas.map((emp) => (
+            <Marker
+              key={emp._id}
+              coordinate={{
+                longitude: emp.localizacao.coordinates[0],
+                latitude: emp.localizacao.coordinates[1],
+              }}
+            >
+              {/* source={{ uri: emp.foto }} */}
+              <Image style={styles.avatar} source={icons.logo} />
+              <Callout
+                onPress={() => {
+                  //Navegação para outra página
+                  navigation.navigate("Profile", {
+                    dados: emp,
+                  });
+                }}
+              >
+                <View style={styles.callout}>
+                  <Text style={styles.name}>{emp.empresa}</Text>
+                  <Text style={styles.bio}>{emp.email}</Text>
+                  <Text style={styles.tecnologias}>tecnologias</Text>
+                  {/* <Text style={styles.name}>{dev.nome}</Text>
               <Text style={styles.bio}>{dev.bio}</Text>
               <Text style={styles.tecnologias}>
                 {dev.tecnologias.join(", ")}
               </Text> */}
-            </View>
-          </Callout>
-        </Marker>
-        {/* ))} */}
+                </View>
+              </Callout>
+            </Marker>
+          ))}
       </MapView>
     </>
   );
