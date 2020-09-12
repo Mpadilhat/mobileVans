@@ -20,12 +20,18 @@ export default function Profile({ navigation }) {
           <Image style={styles.imgMinhaVan} source={icons.minhavan} />
         </View>
         <Text style={styles.paragrafo}>
-          {`
-          Este aplicativo foi desenvolvido no ano de 2020, no qual vivemos um período atípico, em que as pessoas deveriam evitar ao máximo estarem juntas em um mesmo ambiente. Por conta disso, esse App foi criado de forma totalmente remota, por mim, Maria Eduarda Kovalski, e pelo meu colega, Marcos Padilha.`}
+          Este aplicativo foi desenvolvido no ano de 2020, no qual vivemos um
+          período atípico, em que as pessoas deveriam evitar ao máximo estarem
+          juntas em um mesmo ambiente. Por conta disso, esse App foi criado de
+          forma totalmente remota, por mim, Maria Eduarda Kovalski, e pelo meu
+          colega, Marcos Padilha.
         </Text>
         <Text style={styles.paragrafo}>
-          {`
-          O Minha Van nasceu durante o 4º ano do Curso Técnico em Informática, apresentado como Trabalho de Conclusão de Curso do IFSul Câmpus Sapiranga e tem como objetivo dar visibilidade às empresas de transporte e, ao mesmo tempo, oferecer mais opções de escolha aos usuários, em especial, alunos.`}
+          O Minha Van nasceu durante o 4º ano do Curso Técnico em Informática,
+          apresentado como Trabalho de Conclusão de Curso do IFSul Câmpus
+          Sapiranga e tem como objetivo dar visibilidade às empresas de
+          transporte e, ao mesmo tempo, oferecer mais opções de escolha aos
+          usuários, em especial, alunos.
         </Text>
         <Text style={styles.center}>
           Esperamos que o Minha Van seja útil para você!
@@ -54,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    marginBottom: 0,
+    marginBottom: 20,
     marginTop: 0,
   },
   title: {
