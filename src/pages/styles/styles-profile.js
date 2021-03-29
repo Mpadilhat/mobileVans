@@ -9,43 +9,38 @@ export const styles = StyleSheet.create({
     padding: 20,
     height: "100%",
   },
-  head: {
+  divLine: {
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginBottom: 20,
-    marginTop: 0,
-  },
-  title: {
-    fontSize: 35,
-    fontWeight: "bold",
-  },
-  imgMinhaVan: {
-    height: 30,
-    width: 150,
-  },
-  paragrafo: {
-    fontSize: 20,
-    textAlign: "justify",
-  },
-  center: {
-    fontSize: 20,
-    textAlign: "center",
+    flex: 1,
     marginTop: 20,
   },
-  viewImg: {
+  divColumn: {
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
   },
-  imgMenino: {
-    height: 120,
-    width: 120,
-  },
-  imgMenina: {
-    height: 150,
+  img: {
+    height: 100,
     width: 150,
+    borderRadius: 3,
+    marginBottom: 10,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: "bold",
+  },
+  italic: {
+    fontSize: 17,
+    textAlign: "justify",
+    fontStyle: "italic",
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: "rgba(0, 0, 0, 0.85)",
+  },
+  subtitle: { fontSize: 15, color: "black" },
+  paragrafo: {
+    fontSize: 15,
+    textAlign: "justify",
+    fontWeight: "normal",
+    color: "rgba(0, 0, 0, 0.7)",
   },
 });

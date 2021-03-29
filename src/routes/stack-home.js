@@ -1,6 +1,6 @@
 import { createStackNavigator } from "react-navigation-stack";
 
-import { Main, Profile } from "../pages";
+import { Main, Profile, RedeSocial } from "../pages";
 
 //Cria as rotas das páginas a partir da Inicial
 const StackHome = createStackNavigator(
@@ -16,6 +16,12 @@ const StackHome = createStackNavigator(
       screen: Profile,
       navigationOptions: {
         title: "Perfil da empresa",
+      },
+    },
+    RedeSocial: {
+      screen: RedeSocial,
+      navigationOptions: {
+        title: "Rede social da empresa",
       },
     },
   },

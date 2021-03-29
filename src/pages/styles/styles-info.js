@@ -26,7 +26,7 @@ export const styles = StyleSheet.create({
     width: 150,
   },
   paragrafo: {
-    fontSize: 20,
+    fontSize: 18,
     textAlign: "justify",
   },
   center: {

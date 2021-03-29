@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
     color: "#666",
     marginTop: 5,
   },
-  tecnologias: {
+  faixaPreco: {
     marginTop: 5,
   },
   menuForm: {

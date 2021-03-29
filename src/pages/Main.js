@@ -143,8 +143,10 @@ export default function Main({ navigation }) {
                 latitude: emp.localizacao.coordinates[1],
               }}
             >
-              {/* source={{ uri: emp.foto }} */}
-              <Image style={styles.avatar} source={icons.logo} />
+              <Image
+                style={styles.avatar}
+                source={emp.foto ? { uri: emp.foto } : icons.logo}
+              />
               <Callout
                 onPress={() => {
                   //Navegação para outra página
@@ -155,13 +157,10 @@ export default function Main({ navigation }) {
               >
                 <View style={styles.callout}>
                   <Text style={styles.name}>{emp.empresa}</Text>
-                  <Text style={styles.bio}>{emp.email}</Text>
-                  <Text style={styles.tecnologias}>tecnologias</Text>
-                  {/* <Text style={styles.name}>{dev.nome}</Text>
-              <Text style={styles.bio}>{dev.bio}</Text>
-              <Text style={styles.tecnologias}>
-                {dev.tecnologias.join(", ")}
-              </Text> */}
+                  <Text style={styles.bio}>Contato: {emp.contato}</Text>
+                  <Text style={styles.faixaPreco}>
+                    Faixa de preço: R${emp.faixaPreco[0]} - {emp.faixaPreco[1]}
+                  </Text>
                 </View>
               </Callout>
             </Marker>
