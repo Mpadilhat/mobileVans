@@ -10,7 +10,11 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { icons } from "../assets";
 
 import { buscaEmpresasProximas, buscaEmpresasPorNome } from "../services/api";
-// import { connect, disconnect, inscreverNovosDevs } from "../services/socket";
+import {
+  connect,
+  disconnect,
+  inscreverNovasEmpresas,
+} from "../services/socket";
 
 export default function Main({ navigation }) {
   const [empresas, setEmpresas] = useState([]);
@@ -43,6 +47,13 @@ export default function Main({ navigation }) {
     carregarPosicaoInicial();
   }, []);
 
+  //Configurar acesso ao servidor
+  function configWebsocket() {
+    disconnect();
+    const { latitude, longitude } = regiaoAtual;
+    connect(latitude, longitude, nomeEmpresa.trim());
+  }
+
   //Carregar empresas sem filtro no input
   function carregaEmpresasProximas() {
     const { latitude, longitude } = regiaoAtual;
@@ -50,8 +61,6 @@ export default function Main({ navigation }) {
     buscaEmpresasProximas(latitude, longitude)
       .then((resp) => setEmpresas(resp))
       .catch((e) => console.log("ERRO: ", e));
-
-    //configWebsocket();
   }
 
   function filtroPorNome() {
@@ -64,30 +73,26 @@ export default function Main({ navigation }) {
           console.log("ERRO: ", e);
         });
 
-      //configWebsocket();
+      configWebsocket();
     }
   }
 
   useEffect(() => {
     if (regiaoAtual !== null) {
       if (nomeEmpresa === "" && regiaoAtual.latitude && regiaoAtual.longitude) {
+        console.log("MEXEU");
         carregaEmpresasProximas();
       }
     }
   }, [regiaoAtual, nomeEmpresa]);
 
-  //Toda vez que o devs for alterado, atualiza em tempo real
-  // useEffect(() => {
-  //   inscreverNovosDevs((dev) => setDevs([...devs, dev]));
-  // }, [devs]);
-
-  //Configurar acesso ao servidor
-  // function configWebsocket() {
-  //   disconnect();
-
-  //const { latitude, longitude } = regiaoAtual;
-  //   connect(latitude, longitude, tecnologias);
-  // }
+  //Toda vez que o empresas for alterado, atualiza em tempo real
+  useEffect(() => {
+    inscreverNovasEmpresas((emp) => {
+      console.log("EMP", emp);
+      setEmpresas([...empresas, emp]);
+    });
+  }, [empresas]);
 
   //Muda localização se mexer no mapa - pega o region do 'onRegionChangeComplete' do MapView
   function mudaRegiao(region) {

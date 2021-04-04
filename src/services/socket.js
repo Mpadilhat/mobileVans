@@ -1,37 +1,29 @@
-// import socketio from 'socket.io-client';
+import socketio from "socket.io-client";
 
-// //Conectar ao servidor como cliente
-// const socket = socketio('http://10.0.0.106:3333', {
-//   autoConnect: false
-// });
+//Conectar ao servidor como cliente
+const socket = socketio("http://10.0.0.106:3333", {
+  autoConnect: false,
+});
 
-// function inscreverNovosDevs(funcaoInscrever) {
-//   socket.on('novo-dev', funcaoInscrever);
-// }
+function inscreverNovasEmpresas(funcaoInscrever) {
+  socket.on("novaEmpresa", funcaoInscrever);
+}
 
-// function connect(latitude, longitude, tecnologias) {
-//   //Envia pro backend
-//   socket.io.opts.query = {
-//     latitude,
-//     longitude,
-//     tecnologias
-//   };
+function connect(latitude, longitude, nomeEmpresa) {
+  //Envia pro backend
+  socket.io.opts.query = {
+    latitude,
+    longitude,
+    nomeEmpresa,
+  };
 
-//   socket.connect();
+  socket.connect();
+}
 
-//   //socket.on('message', text => {
-//   //console.log(text);
-//   //})
-// }
+function disconnect() {
+  if (socket.connected) {
+    socket.disconnect();
+  }
+}
 
-// function disconnect() {
-//   if (socket.connected) {
-//     socket.disconnect();
-//   }
-// }
-
-// export {
-//   connect,
-//   disconnect,
-//   inscreverNovosDevs
-// };
+export { connect, disconnect, inscreverNovasEmpresas };
