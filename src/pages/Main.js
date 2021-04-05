@@ -17,9 +17,41 @@ import {
 } from "../services/socket";
 
 export default function Main({ navigation }) {
+  const [init, setInit] = useState(false);
   const [empresas, setEmpresas] = useState([]);
   const [regiaoAtual, setRegiaoAtual] = useState(null);
   const [nomeEmpresa, setNomeEmpresa] = useState("");
+
+  //Configurar acesso ao servidor
+  function configWebsocket() {
+    disconnect();
+    const { latitude, longitude } = regiaoAtual;
+    connect(latitude, longitude, nomeEmpresa.trim());
+  }
+
+  //Carregar empresas sem filtro no input
+  function carregaEmpresasProximas() {
+    const { latitude, longitude } = regiaoAtual;
+
+    buscaEmpresasProximas(latitude, longitude)
+      .then((resp) => setEmpresas(resp))
+      .catch((e) => setEmpresas([]));
+  }
+
+  function filtroPorNome() {
+    const { latitude, longitude } = regiaoAtual;
+
+    buscaEmpresasPorNome(latitude, longitude, nomeEmpresa.trim())
+      .then((resp) => {
+        if (resp.message) setEmpresas([]);
+        else setEmpresas(resp);
+      })
+      .catch((e) => {
+        setEmpresas([]);
+      });
+
+    configWebsocket();
+  }
 
   useEffect(() => {
     async function carregarPosicaoInicial() {
@@ -41,57 +73,24 @@ export default function Main({ navigation }) {
           latitudeDelta: 0.015,
           longitudeDelta: 0.015,
         });
+
+        setInit(true);
       }
     }
 
     carregarPosicaoInicial();
   }, []);
 
-  //Configurar acesso ao servidor
-  function configWebsocket() {
-    disconnect();
-    const { latitude, longitude } = regiaoAtual;
-    connect(latitude, longitude, nomeEmpresa.trim());
-  }
-
-  //Carregar empresas sem filtro no input
-  function carregaEmpresasProximas() {
-    const { latitude, longitude } = regiaoAtual;
-
-    buscaEmpresasProximas(latitude, longitude)
-      .then((resp) => setEmpresas(resp))
-      .catch((e) => console.log("ERRO: ", e));
-  }
-
-  function filtroPorNome() {
-    if (nomeEmpresa !== "") {
-      const { latitude, longitude } = regiaoAtual;
-
-      buscaEmpresasPorNome(latitude, longitude, nomeEmpresa.trim())
-        .then((resp) => setEmpresas(resp))
-        .catch((e) => {
-          console.log("ERRO: ", e);
-        });
-
-      configWebsocket();
-    }
-  }
-
   useEffect(() => {
-    if (regiaoAtual !== null) {
-      if (nomeEmpresa === "" && regiaoAtual.latitude && regiaoAtual.longitude) {
-        console.log("MEXEU");
-        carregaEmpresasProximas();
-      }
+    if (init) {
+      carregaEmpresasProximas();
+      setInit(false);
     }
-  }, [regiaoAtual, nomeEmpresa]);
+  }, [init]);
 
   //Toda vez que o empresas for alterado, atualiza em tempo real
   useEffect(() => {
-    inscreverNovasEmpresas((emp) => {
-      console.log("EMP", emp);
-      setEmpresas([...empresas, emp]);
-    });
+    inscreverNovasEmpresas((emp) => setEmpresas([...empresas, emp]));
   }, [empresas]);
 
   //Muda localização se mexer no mapa - pega o region do 'onRegionChangeComplete' do MapView
@@ -126,7 +125,17 @@ export default function Main({ navigation }) {
 
         <TouchableOpacity
           style={styles.botaoPesquisa}
-          onPress={() => filtroPorNome()}
+          onPress={() => {
+            if (nomeEmpresa !== "") {
+              filtroPorNome();
+            } else if (
+              nomeEmpresa === "" &&
+              regiaoAtual !== null &&
+              regiaoAtual.latitude &&
+              regiaoAtual.longitude
+            )
+              carregaEmpresasProximas();
+          }}
         >
           <MaterialIcons name="my-location" size={25} color="#FAD246" />
         </TouchableOpacity>
