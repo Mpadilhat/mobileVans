@@ -1,9 +1,13 @@
 import socketio from "socket.io-client";
 
 //Conectar ao servidor como cliente
-const socket = socketio("http://10.0.0.106:3333", {
-  autoConnect: false,
-});
+//http://10.0.0.106:3333 - SE FOR RODAR LOCAL
+const socket = socketio(
+  "https://us-central1-minha-van-web.cloudfunctions.net/app",
+  {
+    autoConnect: false,
+  }
+);
 
 function inscreverNovasEmpresas(funcaoInscrever) {
   socket.on("novaEmpresa", funcaoInscrever);
