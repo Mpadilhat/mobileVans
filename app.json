@@ -1,24 +1,30 @@
 {
   "expo": {
-    "name": "mobileVans",
-    "slug": "mobileVans",
+    "name": "Minha Van",
+    "slug": "minhaVan",
+    "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/tela_inicial.png",
+    "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/tela_inicial.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#FAD246"
     },
+    "platforms": [
+      "ios", 
+      "android"
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.marcosemaria.minhavan"
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "com.marcosemaria.minhavan"
     }
   }
 }
